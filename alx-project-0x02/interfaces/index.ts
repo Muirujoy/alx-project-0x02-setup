@@ -61,3 +61,13 @@ export interface PostData {
   title: string;
   body: string;
 }
+export type ButtonSize = "small" | "medium" | "large";
+export type ButtonShape = "rounded-sm" | "rounded-md" | "rounded-lg";
+
+export interface ButtonProps {
+  size?: ButtonSize;
+  shape?: ButtonShape;
+  onClick?: () => void;
+  children?: React.ReactNode;
+  className?: string;
+}
