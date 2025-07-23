@@ -1,7 +1,14 @@
+// components/layout/Header.tsx
+import Link from "next/link";
+
 const Header = () => {
   return (
-    <header className="bg-indigo-600 text-white text-center py-4 text-2xl font-bold">
-      Welcome to ALX Project 02
+    <header className="bg-blue-600 text-white p-4">
+      <nav className="flex gap-4">
+        <Link href="/" className="hover:underline">Home</Link>
+        <Link href="/home" className="hover:underline">/Home</Link>
+        <Link href="/about" className="hover:underline">About</Link>
+      </nav>
     </header>
   );
 };
