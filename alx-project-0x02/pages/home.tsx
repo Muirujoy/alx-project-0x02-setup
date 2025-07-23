@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "@/components/common/Card";
 import PostModal from "@/components/common/PostModal";
+import Header from "@/components/layout/Header";
 
 interface Post {
   title: string;
@@ -16,25 +17,31 @@ const HomePage = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Home Page</h1>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-      >
-        Add Post
-      </button>
+    <>
+      <Header />
+      <main className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Home Page</h1>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          Add Post
+        </button>
 
-      {isModalOpen && (
-        <PostModal onClose={() => setIsModalOpen(false)} onSave={handleAddPost} />
-      )}
+        {isModalOpen && (
+          <PostModal
+            onClose={() => setIsModalOpen(false)}
+            onSave={handleAddPost}
+          />
+        )}
 
-      <div className="grid gap-4">
-        {posts.map((post, index) => (
-          <Card key={index} title={post.title} content={post.content} />
-        ))}
-      </div>
-    </div>
+        <div className="grid gap-4">
+          {posts.map((post, index) => (
+            <Card key={index} title={post.title} content={post.content} />
+          ))}
+        </div>
+      </main>
+    </>
   );
 };
 
