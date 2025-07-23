@@ -1,32 +1,34 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import { UserProps } from "@/interfaces";
-import UserCard from "@/components/common/UserCard";
-import Header from "@/components/layout/Header";
+import { UserData } from "@/interface";
 
-interface Props {
-  users: UserProps[];
+interface UsersPageProps {
+  users: UserData[];
 }
 
-const UsersPage: React.FC<Props> = ({ users }) => {
+const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
   return (
-    <>
-      <Header />
-      <main className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Users</h1>
-        <div className="grid gap-4">
-          {users.map((user) => (
-            <UserCard key={user.id} {...user} />
-          ))}
-        </div>
-      </main>
-    </>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Users</h1>
+      <ul className="space-y-2">
+        {users.map((user) => (
+          <li key={user.id} className="border p-4 rounded shadow">
+            <p className="text-lg font-medium">{user.name}</p>
+            <p className="text-sm text-gray-600">{user.email}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
+// ✅ getStaticProps function
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const users: UserProps[] = await res.json();
+  // Simulated static data; replace with fetch or database call if needed
+  const users: UserData[] = [
+    { id: 1, name: "Alice Doe", email: "alice@example.com" },
+    { id: 2, name: "Bob Smith", email: "bob@example.com" },
+  ];
 
   return {
     props: {
