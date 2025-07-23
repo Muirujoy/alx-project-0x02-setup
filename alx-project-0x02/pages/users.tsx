@@ -1,4 +1,3 @@
-// pages/users.tsx
 import React from "react";
 import { GetStaticProps } from "next";
 import { UserProps } from "@/interfaces";
@@ -25,7 +24,6 @@ const UsersPage: React.FC<Props> = ({ users }) => {
   );
 };
 
-// ✅ THIS is the required function for the check to pass
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const users: UserProps[] = await res.json();
