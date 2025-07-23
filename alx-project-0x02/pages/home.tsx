@@ -1,26 +1,39 @@
-// pages/home.tsx
-import React from "react";
+import React, { useState } from "react";
 import Card from "@/components/common/Card";
+import PostModal from "@/components/common/PostModal";
+
+interface Post {
+  title: string;
+  content: string;
+}
 
 const HomePage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  const handleAddPost = (title: string, content: string) => {
+    setPosts((prevPosts) => [...prevPosts, { title, content }]);
+  };
+
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold mb-4">Welcome to the Home Page</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Home Page</h1>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+      >
+        Add Post
+      </button>
 
-      <Card
-        title="Card One"
-        content="This is the content of the first card. It can be anything you'd like."
-      />
+      {isModalOpen && (
+        <PostModal onClose={() => setIsModalOpen(false)} onSave={handleAddPost} />
+      )}
 
-      <Card
-        title="Card Two"
-        content="Here's some content for the second card. This shows reusability."
-      />
-
-      <Card
-        title="Card Three"
-        content="You can create as many cards as you want using the same component."
-      />
+      <div className="grid gap-4">
+        {posts.map((post, index) => (
+          <Card key={index} title={post.title} content={post.content} />
+        ))}
+      </div>
     </div>
   );
 };
