@@ -53,5 +53,11 @@ export interface UserData {
   id: number;
   name: string;
   email: string;
-  address: Address; // ✅ Add this field
+  address: Address; 
+}
+export interface PostData {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 }
