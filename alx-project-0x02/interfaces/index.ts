@@ -1,29 +1,42 @@
-export interface CardProps {
+// For Post Data
+export interface PostData {
+  id: number;
   title: string;
   content: string;
 }
-export interface ButtonProps {
-  label: string;
-  size: "small" | "medium" | "large";
-  shape: "rounded-sm" | "rounded-md" | "rounded-full";
-  onClick?: () => void;
-}
-export interface PostProps {
-  title: string;
-  content: string;
-  userId: number;
-}
 
-// interfaces/index.ts
-
-export interface UserProps {
+// For User Data
+export interface UserData {
   id: number;
   name: string;
   email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-  };
+}
+
+// Props for Button Component
+export interface ButtonProps {
+  buttonLabel: string;
+  buttonBackgroundColor?: string;
+  onClick?: () => void;
+}
+
+// Props for Layout Component
+export interface LayoutProps {
+  children: React.ReactNode;
+}
+
+// Props for Post Modal Component
+export interface PostModalProps {
+  onClose: () => void;
+  onAddPost: (post: PostData) => void;
+}
+
+// Props for User Modal Component
+export interface UserModalProps {
+  onClose: () => void;
+  onAddUser: (user: UserData) => void;
+}
+
+// Optional: Page route props (if needed in pages/index.tsx or navigation)
+export interface PageRouteProps {
+  route?: string;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import { UserData } from "@/interface";
+import { UserData } from "../../interface"; // Use relative path here
 
 interface UsersPageProps {
   users: UserData[];
@@ -11,24 +11,29 @@ const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Users</h1>
       <ul className="space-y-2">
-        {users.map((user) => (
+        {users.map((user: UserData) => (
           <li key={user.id} className="border p-4 rounded shadow">
             <p className="text-lg font-medium">{user.name}</p>
             <p className="text-sm text-gray-600">{user.email}</p>
           </li>
         ))}
       </ul>
-    </div>
-  );
+    </div> 
+  )
 };
 
-// ✅ getStaticProps function
+
 export const getStaticProps: GetStaticProps = async () => {
-  // Simulated static data; replace with fetch or database call if needed
-  const users: UserData[] = [
-    { id: 1, name: "Alice Doe", email: "alice@example.com" },
-    { id: 2, name: "Bob Smith", email: "bob@example.com" },
-  ];
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data = await res.json();
+
+  const users: UserData[] = data.map((user: unknown) => {
+    return ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
+  });
 
   return {
     props: {
