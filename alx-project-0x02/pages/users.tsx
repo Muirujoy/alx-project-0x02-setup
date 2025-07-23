@@ -1,4 +1,5 @@
 // pages/users.tsx
+
 import React from "react";
 import { GetStaticProps } from "next";
 import { UserProps } from "@/interfaces";
@@ -25,13 +26,14 @@ const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
   );
 };
 
+// ✅ Add getStaticProps for static site generation
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await res.json();
+  const users: UserProps[] = await res.json();
 
   return {
     props: {
-      users: data,
+      users,
     },
   };
 };
