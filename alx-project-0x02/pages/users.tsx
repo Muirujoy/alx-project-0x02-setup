@@ -1,7 +1,6 @@
-import React from "react";
+import React from "react"; 
 import { GetStaticProps } from "next";
 import { UserData } from "@/interface";
-
 
 interface UsersPageProps {
   users: UserData[];
@@ -20,44 +19,42 @@ const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
         ))}
       </ul>
     </div> 
-  )
+  );
 };
-
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
 
   type APIUser = {
-  id: number;
-  name: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-  };
-};
-
-const users: UserData[] = (data as APIUser[]).map((user) => ({
-  id: user.id,
-  name: user.name,
-  email: user.email,
-  address: {
-    street: user.address.street,
-    suite: user.address.suite,
-    city: user.address.city,
-    zipcode: user.address.zipcode,
-  },
-}));
-return {
-  props: {
-    users,
-  },
-};
-
+    id: number;
+    name: string;
+    email: string;
+    address: {
+      street: string;
+      suite: string;
+      city: string;
+      zipcode: string;
+    };
   };
 
+  const users: UserData[] = (data as APIUser[]).map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    address: {
+      street: user.address.street,
+      suite: user.address.suite,
+      city: user.address.city,
+      zipcode: user.address.zipcode,
+    },
+  }));
+
+  return {
+    props: {
+      users,
+    },
+  };
+};
 
 export default UsersPage;
