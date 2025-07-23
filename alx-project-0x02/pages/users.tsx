@@ -1,6 +1,7 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import { UserData } from "../../interface"; // Use relative path here
+import { UserData } from "@/interface";
+
 
 interface UsersPageProps {
   users: UserData[];
@@ -27,19 +28,36 @@ export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
 
-  const users: UserData[] = data.map((user: unknown) => {
-    return ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    });
-  });
-
-  return {
-    props: {
-      users,
-    },
+  type APIUser = {
+  id: number;
+  name: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
   };
 };
+
+const users: UserData[] = (data as APIUser[]).map((user) => ({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  address: {
+    street: user.address.street,
+    suite: user.address.suite,
+    city: user.address.city,
+    zipcode: user.address.zipcode,
+  },
+}));
+return {
+  props: {
+    users,
+  },
+};
+
+  };
+
 
 export default UsersPage;

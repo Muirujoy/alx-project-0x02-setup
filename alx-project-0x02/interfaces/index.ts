@@ -40,3 +40,18 @@ export interface UserModalProps {
 export interface PageRouteProps {
   route?: string;
 }
+// interfaces/index.ts
+
+export interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+}
+
+export interface UserData {
+  id: number;
+  name: string;
+  email: string;
+  address: Address; // ✅ Add this field
+}
